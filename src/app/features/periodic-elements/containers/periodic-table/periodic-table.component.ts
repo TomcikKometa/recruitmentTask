@@ -14,8 +14,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-main-dashboard',
   standalone: true,
   imports: [MatTableModule, LottieComponent, MatButton, PopupComponent, CommonModule],
-  templateUrl: './main-dashboard.component.html',
-  styleUrl: './main-dashboard.component.scss'
+  templateUrl: './periodic-table.component.html',
+  styleUrl: './periodic-table.component.scss'
 })
 export class MainDashboardComponent implements OnInit {
   protected options: AnimationOptions = {
