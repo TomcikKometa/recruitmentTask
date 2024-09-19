@@ -1,42 +1,52 @@
-@if (isLoading$ | async) {
-<div class="flex justify-center items-center align-middle content-center h-full">
-  <ng-lottie [options]="options" width="475px" height="480px" class="flex items-center" />
-</div>
-} @else {
-<div class="flex justify-center">
-  <img src="/assets/images/svg-text.svg" width="350" height="80" class="flex items-center mt-24" alt="" />
-</div>
-<div class="content_setting">
-  <table class="table w-64" mat-table [dataSource]="(periodicElements$ | async)!">
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef>ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.position }}</td>
-    </ng-container>
+<div class="page_setting justify-center">
+  @if(isLoading$ | async){
+  <div class="flex justify-center items-center align-middle h-full">
+    <ng-lottie [options]="options" width="475px" height="280px" class="flex align-middle" />
+  </div>
+  } @else {
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
-    </ng-container>
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
-    </ng-container>
+  <div class="flex justify-center">
+    <img src="/assets/images/svg-text.svg" width="350" height="80" class="flex items-center mt-4 mb-2" alt="" />
+  </div>
+  <div class="content_setting">
+    <table class="table w-72" mat-table [dataSource]="(periodicElements$ | async)!">
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let element">
-        <div>
-          <button mat-raised-button (click)="openDialog()">Edit</button>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <div class="w-56 justify-between align-middle items-center">
+          <td mat-cell *matCellDef="let element" class="w-22 row pt-5">
+            <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
+              <span class="w-20">{{ element.name }} </span>
+              <button class="w-1" (click)="openDialog()"><mat-icon class="pt-1">create</mat-icon></button>
+            </div>
+          </td>
         </div>
-      </td>
-    </ng-container>
+      </ng-container>
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+      </ng-container>
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table_header"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table_row"></tr>
-  </table>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <div>
+            <button mat-raised-button (click)="openDialog()">Edit</button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table_header"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table_row"></tr>
+    </table>
+  </div>
+  }
 </div>
-}

@@ -9,11 +9,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { PeriodicElementDataService } from '../../../services/periodic-element-data.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-main-dashboard',
   standalone: true,
-  imports: [MatTableModule, LottieComponent, MatButton, PopupComponent, CommonModule],
+  imports: [MatTableModule, LottieComponent, MatButton, PopupComponent, CommonModule,MatIconModule],
   templateUrl: './periodic-table.component.html',
   styleUrl: './periodic-table.component.scss'
 })
