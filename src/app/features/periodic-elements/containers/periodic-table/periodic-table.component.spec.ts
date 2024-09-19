@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainDashboardComponent } from './main-dashboard.component';
+import { MainDashboardComponent } from './periodic-table.component';
 
 describe('MainDashboardComponent', () => {
   let component: MainDashboardComponent;

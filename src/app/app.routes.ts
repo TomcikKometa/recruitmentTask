@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router';
 export enum RoutesPaths {
-  MAIN_DASHBOARD = 'mainDashboard',
+  PERIODIC_TABLE = 'periodic-table',
 }
 export const routes: Routes = [
   {
-    path: RoutesPaths.MAIN_DASHBOARD,
+    path: RoutesPaths.PERIODIC_TABLE,
     loadComponent: () =>
       import(
-        './features/periodic-elements/containers/main-dashboard/main-dashboard.component'
+        './features/periodic-elements/containers/periodic-table/periodic-table.component'
       ).then((c) => c.MainDashboardComponent),
   },
   {
     path: '**',
-    redirectTo: RoutesPaths.MAIN_DASHBOARD,
+    redirectTo: RoutesPaths.PERIODIC_TABLE,
   },
 ];
