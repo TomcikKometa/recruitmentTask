@@ -10,11 +10,12 @@ import { PeriodicElementDataService } from '../../../services/periodic-element-d
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-main-dashboard',
   standalone: true,
-  imports: [MatTableModule, LottieComponent, MatButton, PopupComponent, CommonModule,MatIconModule],
+  imports: [MatTableModule, LottieComponent, MatButton, PopupComponent, CommonModule,MatIconModule,MatInputModule],
   templateUrl: './periodic-table.component.html',
   styleUrl: './periodic-table.component.scss'
 })
@@ -28,7 +29,7 @@ export class MainDashboardComponent implements OnInit {
   color2= 'linear-gradient(37deg, rgba(255,255,255,1) 0%, rgba(243,244,246,1) 12%, rgba(156,163,175,1) 100%, rgba(156,163,175,1) 100%)'
   private readonly periodicElementDataService = inject(PeriodicElementDataService);
 
-  protected displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'action'];
+  protected displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   protected dataSource!: MatTableDataSource<PeriodicElement, MatPaginator>;
   protected isRendered: boolean = true;
   protected isLoading$: Observable<boolean> = this.periodicElementDataService.isLoading$;
