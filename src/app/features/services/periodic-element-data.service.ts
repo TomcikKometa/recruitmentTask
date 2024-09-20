@@ -12,9 +12,7 @@ export class PeriodicElementDataService {
   private readonly _filterPhrase: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   private readonly isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public get isLoading$(): Observable<boolean> {
-    return this.isLoading.asObservable();
-  }
+  
 
   public set filterPhrase(value: string) {
     this._filterPhrase.next(value);
@@ -22,10 +20,12 @@ export class PeriodicElementDataService {
 
   public get periodicElements$(): Observable<PeriodicElement[]> {
     return combineLatest([this._periodicElements.asObservable(), this._filterPhrase.asObservable()]).pipe(
-      map(([periodicElements, filterPhrase]) => {
-        return this.filterPeriodicElements(periodicElements, filterPhrase);
-      })
+      map(([periodicElements, filterPhrase]) => this.filterPeriodicElements(periodicElements, filterPhrase))
     );
+  }
+
+  public get isLoading$(): Observable<boolean> {
+    return this.isLoading.asObservable();
   }
 
   public fetchPeriodicElements(): void {
@@ -63,7 +63,9 @@ export class PeriodicElementDataService {
       return periodicElement;
     }
     return periodicElement.filter((periodicElement: PeriodicElement) => {
-      return Object.values(periodicElement).find((value)=> value.toString().toUpperCase().includes(filterPhrase.toUpperCase()))
+      return Object.values(periodicElement).find(value =>
+        value.toString().toUpperCase().includes(filterPhrase.toUpperCase())
+      );
     });
   }
 }
