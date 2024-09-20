@@ -11,37 +11,42 @@
   <div class="content_setting">
     <table class="table w-72" mat-table [dataSource]="(periodicElements$ | async)!">
       <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+        <th mat-header-cell *matHeaderCellDef class="w-10">Position</th>
+        <td mat-cell *matCellDef="let element" class="w-10">{{ element.position }}</td>
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <th mat-header-cell *matHeaderCellDef ><div class="flex justify-center hover:border-lime-500"><span>Name</span></div></th>
         <div class="w-56 justify-between align-middle items-center">
-          <td mat-cell *matCellDef="let element" class="w-22 row pt-5">
+          <td mat-cell *matCellDef="let element" class="w-22 row pt-5  hover:bg-zinc-200 hover:rounded-md hover:shadow-inner">
             <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
               <span class="w-20">{{ element.name }} </span>
-              <button class="w-1" (click)="openDialog()"><mat-icon class="pt-1">create</mat-icon></button>
+              <button class="w-1" (click)="openDialog()"><mat-icon class="pt-1 h1- w-1">create</mat-icon></button>
             </div>
           </td>
         </div>
       </ng-container>
       <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+        <th mat-header-cell *matHeaderCellDef><div class="flex justify-center"><span>Weight</span></div></th>
+        <div class="w-56 justify-between align-middle items-center">
+          <td mat-cell *matCellDef="let element" class="w-22 row pt-5  hover:bg-zinc-200 hover:rounded-md hover:shadow-inner">
+            <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
+              <span class="w-20">{{ element.weight }} </span>
+              <button class="w-1" (click)="openDialog()"><mat-icon class="pt-1">create</mat-icon></button>
+            </div>
+          </td>
+        </div>
       </ng-container>
       <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef>Action</th>
-        <td mat-cell *matCellDef="let element">
-          <div>
-            <button mat-raised-button (click)="openDialog()">Edit</button>
-          </div>
-        </td>
+        <th mat-header-cell *matHeaderCellDef><div class="flex justify-center"><span>Symbol</span></div></th>
+        <div class="w-56 justify-between align-middle items-center">
+          <td mat-cell *matCellDef="let element" class="w-22 row pt-5  hover:bg-zinc-200 hover:rounded-md hover:shadow-inner">
+            <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
+             <div class="justify-center flex w-20"><span>{{ element.symbol }}</span></div> 
+              <button class="w-1 tooltip" (click)="openDialog()"><mat-icon class="pt-1 tooltip">create</mat-icon></button>
+            </div>
+          </td>
+        </div>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table_header"></tr>
