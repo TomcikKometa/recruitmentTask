@@ -1,22 +1,31 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, finalize, first, Observable, switchMap, tap } from 'rxjs';
-import { PeriodicElement } from '../../api/models/periodicElement';
-import { ElementApiService } from '../../api/services/element-api.service';
+import { BehaviorSubject, combineLatest, finalize, first, map, Observable, switchMap, tap } from 'rxjs';
+import { ElementApiService } from '../../@api/services/element-api.service';
+import { PeriodicElement } from '../../@api/models/periodicElement';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PeriodicElementDataService {
-  private readonly periodicElements: BehaviorSubject<PeriodicElement[]> = new BehaviorSubject<PeriodicElement[]>([]);
-  private readonly elementApiService: ElementApiService = inject(ElementApiService);
+  private readonly _periodicElements: BehaviorSubject<PeriodicElement[]> = new BehaviorSubject<PeriodicElement[]>([]);
+  private readonly _elementApiService: ElementApiService = inject(ElementApiService);
+  private readonly _filterPhrase: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   private readonly isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public get isLoading$() : Observable<boolean> {
-    return this.isLoading.asObservable()
-  } 
+  public get isLoading$(): Observable<boolean> {
+    return this.isLoading.asObservable();
+  }
+
+  public set filterPhrase(value: string) {
+    this._filterPhrase.next(value);
+  }
 
   public get periodicElements$(): Observable<PeriodicElement[]> {
-    return this.periodicElements.asObservable();
+    return combineLatest([this._periodicElements.asObservable(), this._filterPhrase.asObservable()]).pipe(
+      map(([periodicElements, filterPhrase]) => {
+        return this.filterPeriodicElements(periodicElements, filterPhrase);
+      })
+    );
   }
 
   public fetchPeriodicElements(): void {
@@ -29,10 +38,10 @@ export class PeriodicElementDataService {
       .subscribe();
   }
 
-  public editPeriodicElements(periodcElement: PeriodicElement): void {
+  public editPeriodicElements(position: number, periodcElement: PeriodicElement): void {
     this.isLoading.next(true);
-    this.elementApiService
-      .editSinglePeriodicElement(periodcElement)
+    this._elementApiService
+      .editSinglePeriodicElement(position, periodcElement)
       .pipe(
         first(),
         switchMap(() => this.getPeriodicElementsFromApi()),
@@ -42,10 +51,19 @@ export class PeriodicElementDataService {
   }
 
   private getPeriodicElementsFromApi(): Observable<PeriodicElement[]> {
-    return this.elementApiService.getPeriodicElements().pipe(
+    return this._elementApiService.getPeriodicElements().pipe(
       tap((periodicElements: PeriodicElement[]) => {
-        this.periodicElements.next(periodicElements);
+        this._periodicElements.next(periodicElements);
       })
     );
+  }
+
+  private filterPeriodicElements(periodicElement: PeriodicElement[], filterPhrase: string): PeriodicElement[] {
+    if (!filterPhrase) {
+      return periodicElement;
+    }
+    return periodicElement.filter((periodicElement: PeriodicElement) => {
+      return Object.values(periodicElement).find((value)=> value.toString().toUpperCase().includes(filterPhrase.toUpperCase()))
+    });
   }
 }

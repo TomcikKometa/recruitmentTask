@@ -1,1 +1,78 @@
-<p>popup works!</p>
+<form [formGroup]="popUpForm!" class="container">
+  @if(data.editType === 'position'){
+  <div class="justify-center mt-10">
+    <div class="flex justify-center"><h1>Position</h1></div>
+
+    <div class="flex justify-center h-8" [style.height]="'30px'">
+      <mat-form-field appearance="outline" class="w-24" [style.background-color]="'#EFF1F3'" [style.height]="'55px'">
+        <input
+          matInput
+          type="number"
+          formControlName="{{ periodicElementControlType.POSITION }}"
+          [style.background-color]="'#EFF1F3'"
+          class="text-center"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  }
+  @if(data.editType === 'name'){
+    <div class="justify-center mt-10">
+      <div class="flex justify-center"><h1>Name</h1></div>
+  
+      <div class="flex justify-center h-8" [style.height]="'30px'">
+        <mat-form-field appearance="outline" class="w-24" [style.background-color]="'#EFF1F3'" [style.height]="'55px'">
+          <input
+            matInput
+            type="text"
+            formControlName="{{ periodicElementControlType.NAME }}"
+            [style.background-color]="'#EFF1F3'"
+            class="text-center"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    }
+    @if(data.editType === 'weight'){
+        <div class="justify-center mt-10">
+          <div class="flex justify-center"><h1>Weight</h1></div>
+      
+          <div class="flex justify-center h-8" [style.height]="'30px'">
+            <mat-form-field appearance="outline" class="w-24" [style.background-color]="'#EFF1F3'" [style.height]="'55px'">
+              <input
+                matInput
+                type="number"
+                formControlName="{{ periodicElementControlType.WEIGHT }}"
+                [style.background-color]="'#EFF1F3'"
+                class="text-center"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        }
+        @if(data.editType === 'symbol'){
+            <div class="justify-center mt-10">
+              <div class="flex justify-center"><h1>Symbol</h1></div>
+          
+              <div class="flex justify-center h-8" [style.height]="'30px'">
+                <mat-form-field appearance="outline" class="w-24" [style.background-color]="'#EFF1F3'" [style.height]="'55px'">
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="{{ periodicElementControlType.SYMBOL }}"
+                    [style.background-color]="'#EFF1F3'"
+                    class="text-center"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            }
+
+  <div class="mat_dialog_actions">
+    <mat-dialog-actions style="justify-content: end">
+      <button class="buttonCustom" mat-button mat-dialog-close>Cancel</button>
+
+      <button class="buttonCustom" mat-button (click)="save()">Next</button>
+    </mat-dialog-actions>
+  </div>
+</form>

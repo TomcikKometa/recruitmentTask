@@ -1,0 +1,12 @@
+.container {
+    background-image: url('/assets/images/pop-up.svg');
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+}
+
+
+::ng-deep mat-form-field-placeholder{
+
+    color:red;
+  }
