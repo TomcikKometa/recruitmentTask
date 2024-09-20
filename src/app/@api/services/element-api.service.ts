@@ -23,9 +23,9 @@ export class ElementApiService {
     return of(this.elementData).pipe(delay(2000));
   }
 
-  public editSinglePeriodicElement(elementToSave: PeriodicElement): Observable<void> {
+  public editSinglePeriodicElement(position:number, elementToSave: PeriodicElement): Observable<void> {
     this.elementData = this.elementData.map((singleElement: PeriodicElement) => {
-      if (singleElement.position === elementToSave.position) {
+      if (position === singleElement.position) {
         return {
           ...elementToSave
         };
