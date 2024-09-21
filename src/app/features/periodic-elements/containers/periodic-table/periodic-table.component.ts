@@ -6,14 +6,15 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { PopupComponent } from '../../components/popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PeriodicElementDataService } from '../../../services/periodic-element-data.service';
-import { debounce, debounceTime, delay, distinctUntilChanged, first, Observable, takeUntil } from 'rxjs';
+import { debounce, debounceTime, delay, distinctUntilChanged, filter, first, Observable, take, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { DIALOG_OPTIONS_POP_UP } from '../../../../@config/form-config';
-import { PeriodicElement } from '../../../../@api/models/periodicElement';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DIALOG_OPTIONS_POP_UP } from '../../../../config/form-config';
+import { PeriodicElement } from '../../../../api/models/periodicElement';
+import { PeriodicElementStateService } from '../../../services/periodic-element-state.service';
 
 export enum EditType {
   NAME = 'name',
@@ -44,16 +45,16 @@ export class MainDashboardComponent implements OnInit {
     autoplay: true
   };
   protected readonly filterControl: FormControl = new FormControl('');
-  private readonly periodicElementDataService = inject(PeriodicElementDataService);
+  private readonly periodicElementDataService = inject(PeriodicElementStateService);
 
   protected displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   protected dataSource!: MatTableDataSource<PeriodicElement, MatPaginator>;
   protected isRendered: boolean = true;
   protected isLoading$: Observable<boolean> = this.periodicElementDataService.isLoading$;
   protected periodicElements$: Observable<PeriodicElement[]> = this.periodicElementDataService.periodicElements$;
-  private readonly destroyReference: DestroyRef = inject(DestroyRef);
 
-  private readonly dialog: MatDialog = inject(MatDialog);
+  private readonly destroyReference: DestroyRef = inject(DestroyRef);
+ private readonly dialog: MatDialog = inject(MatDialog);
 
   public ngOnInit(): void {
     this.periodicElementDataService.fetchPeriodicElements();
@@ -69,9 +70,9 @@ export class MainDashboardComponent implements OnInit {
     this.dialog
       .open(PopupComponent, { ...DIALOG_OPTIONS_POP_UP, data: { element, editType } })
       .afterClosed()
-      .pipe(first())
-      .subscribe((value: Partial<PeriodicElement>) => {
-        this.periodicElementDataService.editPeriodicElements(element.position, { ...element, ...value });
+      .pipe(take(1),filter((value:Partial<PeriodicElement>) => !!value))
+      .subscribe((value) => {
+        this.periodicElementDataService.editPeriodicElements(element.position,{ ...element, ...value });
       });
   }
 }
