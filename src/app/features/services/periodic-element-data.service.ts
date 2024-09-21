@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, finalize, first, map, Observable, switchMap, tap } from 'rxjs';
-import { ElementApiService } from '../../@api/services/element-api.service';
-import { PeriodicElement } from '../../@api/models/periodicElement';
+import { PeriodicElement } from '../../api/models/periodicElement';
+import { ElementApiService } from '../../api/services/element-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,6 @@ export class PeriodicElementDataService {
   }
 
   public editPeriodicElements(position: number, periodcElement: PeriodicElement): void {
-    this.isLoading.next(true);
     this._elementApiService
       .editSinglePeriodicElement(position, periodcElement)
       .pipe(
