@@ -1,73 +1,123 @@
 <div class="page_setting justify-center">
   @if(isLoading$ | async){
-  <div class="flex justify-center items-center align-middle h-full">
-    <ng-lottie [options]="options" width="475px" height="280px" class="flex align-middle" />
-  </div>
-  } @else {
-
-    <div class="flex justify-center h-8 mt-15" [style.height]="'30px'">
-      <mat-form-field appearance="outline" class="w-24" [style.background-color]="'#EFF1F3'" [style.height]="'55px'">
+  <div class="flex flex-row justify-center">
+      <ng-lottie [options]="options" width="475px" height="280px" class="pt-56" />
+    </div>
+  }
+  <div [style.visibility]="!(isLoading$ | async ) ? 'visible' : 'hidden'">
+    <div class="flex justify-center pb-2 pt-6">
+      <img src="../assets/images/table-text.svg" width="490" height="130" class="" alt="" />
+    </div>
+    <div class="flex justify-center">
+      <div class="flex justify-center h-8 mt-15 mb-4 w-3/5">
         <input
           matInput
           type="text"
-          class="text-center"
+          class="text-center input w-3/5"
           [formControl]="filterControl"
+          placeholder="Search by position | name | weight | symbol"
         />
-      </mat-form-field>
+      </div>
     </div>
+    <div class="content_setting">
+      <table class="table w-72" mat-table [dataSource]="(periodicElements$ | async)!">
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="flex justify-center"><span>Position</span></div>
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="w-18 row pt-5 hover:bg-zinc-200 hover:rounded-md hover:shadow-inner"
+          >
+            <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
+              <span class="w-6">{{ element.position }} </span>
+              <button
+                class="items-center align-middle h-10"
+                title="Click to edit value"
+                (click)="openDialog(element, 'position')"
+              >
+                <mat-icon class="pt-2">create</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
 
-  <div class="flex justify-center">
-    <img src="/assets/images/svg-text.svg" width="350" height="80" class="flex items-center mt-4 mb-2" alt="" />
-  </div>
-  <div class="content_setting">
-    <table class="table w-72" mat-table [dataSource]="(periodicElements$ | async)!">
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef ><div class="flex justify-center"><span>Position</span></div></th>
-        <td mat-cell *matCellDef="let element" class="w-18 row pt-5  hover:bg-zinc-200 hover:rounded-md hover:shadow-inner">
-          <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
-            <span class="w-6">{{ element.position }} </span>
-            <button class="w-1" title="Click to edit value" (click)="openDialog(element,'position')"><mat-icon class="pt-1 h1- w-1">create</mat-icon></button>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="flex justify-center"><span>Name</span></div>
+          </th>
+          <div class="w-56 justify-between align-middle items-center">
+            <td
+              mat-cell
+              *matCellDef="let element"
+              class="w-22 row pt-5 hover:bg-zinc-200 hover:rounded-md hover:shadow-inner"
+            >
+              <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
+                <span class="w-16">{{ element.name }} </span>
+                <button
+                  class="items-center align-middle h-10"
+                  title="Click to edit value"
+                  (click)="openDialog(element, 'name')"
+                >
+                  <mat-icon class="pt-2">create</mat-icon>
+                </button>
+              </div>
+            </td>
           </div>
-        </td>
-      </ng-container>
+        </ng-container>
+        <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="flex justify-center"><span>Weight</span></div>
+          </th>
+          <div class="w-56 justify-between align-middle items-center">
+            <td
+              mat-cell
+              *matCellDef="let element"
+              class="w-22 row pt-5 hover:bg-zinc-200 hover:rounded-md hover:shadow-inner"
+            >
+              <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
+                <span class="w-16">{{ element.weight }} </span>
+                <button
+                  class="items-center align-middle h-10"
+                  title="Click to edit value"
+                  (click)="openDialog(element, 'weight')"
+                >
+                  <mat-icon class="pt-2">create</mat-icon>
+                </button>
+              </div>
+            </td>
+          </div>
+        </ng-container>
+        <ng-container matColumnDef="symbol">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="flex justify-center"><span>Symbol</span></div>
+          </th>
+          <div class="w-56 justify-between align-middle items-center">
+            <td
+              mat-cell
+              *matCellDef="let element"
+              class="w-22 row pt-5 hover:bg-zinc-200 hover:rounded-md hover:shadow-inner"
+            >
+              <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
+                <div class="flex w-6">
+                  <span>{{ element.symbol }}</span>
+                </div>
+                <button
+                  class="items-center align-middle h-10"
+                  title="Click to edit value"
+                  (click)="openDialog(element, 'symbol')"
+                >
+                  <mat-icon class="pt-2">create</mat-icon>
+                </button>
+              </div>
+            </td>
+          </div>
+        </ng-container>
 
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef ><div class="flex justify-center"><span>Name</span></div></th>
-        <div class="w-56 justify-between align-middle items-center">
-          <td mat-cell *matCellDef="let element" class="w-22 row pt-5  hover:bg-zinc-200 hover:rounded-md hover:shadow-inner">
-            <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
-              <span class="w-16">{{ element.name }} </span>
-              <button class="w-1" title="Click to edit value" (click)="openDialog(element,'name')"><mat-icon class="pt-1 h1- w-1">create</mat-icon></button>
-            </div>
-          </td>
-        </div>
-      </ng-container>
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef><div class="flex justify-center"><span>Weight</span></div></th>
-        <div class="w-56 justify-between align-middle items-center">
-          <td mat-cell *matCellDef="let element" class="w-22 row pt-5  hover:bg-zinc-200 hover:rounded-md hover:shadow-inner">
-            <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
-              <span class="w-16">{{ element.weight }} </span>
-              <button class="w-1" title="Click to edit value" (click)="openDialog(element,'weight')" ><mat-icon class="pt-1">create</mat-icon></button>
-            </div>
-          </td>
-        </div>
-      </ng-container>
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef><div class="flex justify-center"><span>Symbol</span></div></th>
-        <div class="w-56 justify-between align-middle items-center">
-          <td mat-cell *matCellDef="let element" class="w-22 row pt-5  hover:bg-zinc-200 hover:rounded-md hover:shadow-inner">
-            <div class="mt-5 flex flex-row items-center justify-center align-middle mb-5">
-             <div class="flex w-6"><span>{{ element.symbol }}</span></div> 
-              <button class="w-1 tooltip" title="Click to edit value"  (click)="openDialog(element,'symbol')"><mat-icon class="pt-1 tooltip">create</mat-icon></button>
-            </div>
-          </td>
-        </div>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table_header"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table_row"></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table_header"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table_row"></tr>
+      </table>
+    </div>
   </div>
-  }
 </div>

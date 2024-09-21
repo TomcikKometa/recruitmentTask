@@ -1,6 +1,7 @@
 .content_setting {
   overflow-y: visible;
   opacity: 0.8;
+  padding-top: 32px;
 }
 
 .title {
@@ -55,6 +56,10 @@ opacity:  unset;
   left: 86%;
 }
 
+.hiden1{
+  visibility: visible;
+}
+
 .table_header {
   box-shadow: 1px 8px 10px 10px var(--boxShadowOne-color-a3bfd9);
   border-radius: 5px !important;
@@ -70,4 +75,22 @@ opacity:  unset;
 
 mat-icon {
   transform: scale(0.7);
+  height: 100%;
+}
+
+mat-form-field {
+  transform: scale(0.8);
+}
+
+.input {
+  height: 40px;
+  line-height: 28px;
+  width: 100%;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  outline: none;
+  background-color:#FDFDFD;
+  color: #0d0c22;
+  box-shadow: 0 0 5px #676768, 0 0 0 10px #DEE2E6;
+  transition: .3s ease;
 }
