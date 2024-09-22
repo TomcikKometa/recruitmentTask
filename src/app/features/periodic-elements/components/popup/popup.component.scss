@@ -1,17 +1,18 @@
+mat-form-field {
+    transform: scale(0.8);
+}
+
 .container {
-    background-image: url('/assets/images/pop-up.svg');
+    background-image: url("/assets/images/pop-up.svg");
     height: 100%;
     width: 100%;
     background-size: cover;
     height: 90%;
     align-content: center;
-padding-bottom: 10%;
-align-items: center;
-}
-
-
-mat-form-field {
-    transform: scale(0.8);
+    padding-bottom: 10%;
+    align-items: center;
+    justify-content: center;
+    display:inline-flex;
 }
 
 .input {
@@ -21,8 +22,11 @@ mat-form-field {
     border: 2px solid transparent;
     border-radius: 5px;
     outline: none;
-    background-color:#FDFDFD;
+    background-color: #fdfdfd;
     color: #0d0c22;
-    box-shadow: 0 0 5px #676768, 0 0 0 10px #feffff;
-    transition: .3s ease;
-  }
+    box-shadow:
+        0 0 5px #676768,
+        0 0 0 10px #feffff;
+    transition: 0.3s ease;
+    text-align: center;
+}

@@ -17,9 +17,10 @@ mat-form-field {
 .table_visability {
   visibility: hidden;
 }
- .table_shadow{
+
+.table_shadow {
   box-shadow: rgba(223, 223, 223, 0.12) 0px 2px 4px 0px, rgba(175, 176, 177, 0.32) 0px 2px 16px 0px;
- }
+}
 
 .table_main_setting {
   overflow-y: visible;
@@ -48,9 +49,7 @@ mat-form-field {
   outline: none;
   background-color: #fdfdfd;
   color: #0d0c22;
-  box-shadow:
-    0 0 5px #676768,
-    0 0 0 10px #dee2e6;
+  box-shadow: 0 0 5px #676768, 0 0 0 10px #dee2e6;
   transition: 0.3s ease;
   text-align: center;
-}
+}/*# sourceMappingURL=periodic-table.component.css.map */

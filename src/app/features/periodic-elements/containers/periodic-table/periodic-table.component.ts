@@ -1,12 +1,11 @@
-import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { MatButton } from '@angular/material/button';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { PopupComponent } from '../../components/popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
-import { PeriodicElementDataService } from '../../../services/periodic-element-data.service';
-import { debounce, debounceTime, delay, distinctUntilChanged, filter, first, Observable, take, takeUntil } from 'rxjs';
+import { debounceTime, filter, Observable, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -54,7 +53,7 @@ export class MainDashboardComponent implements OnInit {
   protected periodicElements$: Observable<PeriodicElement[]> = this.periodicElementDataService.periodicElements$;
 
   private readonly destroyReference: DestroyRef = inject(DestroyRef);
- private readonly dialog: MatDialog = inject(MatDialog);
+  private readonly dialog: MatDialog = inject(MatDialog);
 
   public ngOnInit(): void {
     this.periodicElementDataService.fetchPeriodicElements();
@@ -70,9 +69,12 @@ export class MainDashboardComponent implements OnInit {
     this.dialog
       .open(PopupComponent, { ...DIALOG_OPTIONS_POP_UP, data: { element, editType } })
       .afterClosed()
-      .pipe(take(1),filter((value:Partial<PeriodicElement>) => !!value))
-      .subscribe((value) => {
-        this.periodicElementDataService.editPeriodicElements(element.position,{ ...element, ...value });
+      .pipe(
+        take(1),
+        filter((value: Partial<PeriodicElement>) => !!value)
+      )
+      .subscribe(value => {
+        this.periodicElementDataService.editPeriodicElements(element.position, { ...element, ...value });
       });
   }
 }

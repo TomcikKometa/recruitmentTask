@@ -1,5 +1,5 @@
 @if(isData){
-<form [formGroup]="popUpForm!" class="container flex justify-center items-center">
+<form [formGroup]="popUpForm!" class="container">
   <section class="flex flex-row items-center w-3/5">
     <div class="align-middle w-40 justify-start">
       <span class="text-gray-400 text-3xl">{{ label }}</span>
@@ -9,12 +9,12 @@
       [type]="inputType"
       [formControlName]="controlType"
       [style.background-color]="'#EFF1F3'"
-      class="text-center input"
+      class="input"
     />
   </section>
 </form>
 <div class="flex justify-end">
-  <mat-dialog-actions style="justify-content: end">
+  <mat-dialog-actions>
     <button mat-button mat-dialog-close>Cancel</button>
 
     <button mat-button (click)="save()" [disabled]="!popUpForm?.dirty">Save</button>

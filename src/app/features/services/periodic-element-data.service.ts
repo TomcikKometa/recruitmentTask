@@ -10,9 +10,7 @@ export class PeriodicElementDataService {
   private readonly _periodicElements: BehaviorSubject<PeriodicElement[]> = new BehaviorSubject<PeriodicElement[]>([]);
   private readonly _elementApiService: ElementApiService = inject(ElementApiService);
   private readonly _filterPhrase: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
   private readonly isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  
 
   public set filterPhrase(value: string) {
     this._filterPhrase.next(value);
