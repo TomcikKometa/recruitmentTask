@@ -13,3 +13,16 @@ align-items: center;
 mat-form-field {
     transform: scale(0.8);
 }
+
+.input {
+    height: 40px;
+    line-height: 28px;
+    width: 50%;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    outline: none;
+    background-color:#FDFDFD;
+    color: #0d0c22;
+    box-shadow: 0 0 5px #676768, 0 0 0 10px #feffff;
+    transition: .3s ease;
+  }

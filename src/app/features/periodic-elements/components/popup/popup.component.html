@@ -1,17 +1,16 @@
+@if(isData){
 <form [formGroup]="popUpForm!" class="container flex justify-center items-center">
   <section class="flex flex-row items-center w-3/5">
-      <div class="align-middle w-40 justify-start">
-        <span class="text-gray-500 text-3xl">{{ label }}</span>
-      </div>
-      <mat-form-field appearance="outline" class="w-28 h-4" [style.background-color]="'#EFF1F3'" [style.height]="'55px'">
-        <input
-          matInput
-          [type]="inputType"
-          [formControlName]="controlType"
-          [style.background-color]="'#EFF1F3'"
-          class="text-center"
-        />
-      </mat-form-field>
+    <div class="align-middle w-40 justify-start">
+      <span class="text-gray-400 text-3xl">{{ label }}</span>
+    </div>
+    <input
+      matInput
+      [type]="inputType"
+      [formControlName]="controlType"
+      [style.background-color]="'#EFF1F3'"
+      class="text-center input"
+    />
   </section>
 </form>
 <div class="flex justify-end">
@@ -21,3 +20,10 @@
     <button mat-button (click)="save()" [disabled]="!popUpForm?.dirty">Save</button>
   </mat-dialog-actions>
 </div>
+} @else {
+<div class="flex flex-row items-center justify-center h-full pb-14 bg-gray-100 w-full pl-2 pr-2">
+  <div class="flex justify-center">
+    <span class="text-2xl text-center justify-center">We are deeply sorry informing you that, there's no data</span>
+  </div>
+</div>
+}

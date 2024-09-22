@@ -1,19 +1,19 @@
 <div class="page_setting justify-center">
   @if(isLoading$ | async){
   <div class="flex flex-row justify-center">
-      <ng-lottie [options]="options" width="475px" height="280px" class="pt-56" />
-    </div>
-  }
-  <div [style.visibility]="!(isLoading$ | async ) ? 'visible' : 'hidden'">
+    <ng-lottie [options]="options" width="475px" height="280px" class="pt-56" />
+  </div>
+}
+  <div [ngClass]="{'hiden1':(isLoading$ | async)}">
     <div class="flex justify-center pb-2 pt-6">
       <img src="../assets/images/table-text.svg" width="490" height="130" class="" alt="" />
     </div>
-    <div class="flex justify-center">
+    <div class="flex justify-center" >
       <div class="flex justify-center h-8 mt-15 mb-4 w-3/5">
         <input
           matInput
           type="text"
-          class="text-center input w-3/5"
+          [ngClass]="{'hiden1': (isLoading$ | async), 'input': !(isLoading$ | async)}"
           [formControl]="filterControl"
           placeholder="Search by position | name | weight | symbol"
         />
@@ -120,4 +120,5 @@
       </table>
     </div>
   </div>
+
 </div>

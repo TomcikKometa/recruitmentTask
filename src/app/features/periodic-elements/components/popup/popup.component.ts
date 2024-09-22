@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { PopUpData } from './model/pop-up-form';
 import { PopUpFormService } from '../../../services/pop-up-form.service';
@@ -21,13 +21,16 @@ export class PopupComponent implements OnInit {
   protected controlType: string = '';
   protected inputType: 'text' | 'number' = 'text';
   protected label: string = '';
+  protected isData:boolean = true;
 
   protected readonly matDialogRef: MatDialogRef<PopupComponent> = inject(MatDialogRef);
   protected readonly data: PopUpData = inject(MAT_DIALOG_DATA);
   private readonly popFormService: PopUpFormService = inject(PopUpFormService);
+  private readonly ref: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
-    this.data ? this.popUpForm = this.popFormService.prepareForm(this.data) : '';
+    console.log(this.data);
+    this.data.element ? (this.popUpForm = this.popFormService.prepareForm(this.data),this.isData = true ): this.isData = false;
     switch (this.data.editType) {
       case PeriodicElementControlType.NAME:
         this.controlType = PeriodicElementControlType.NAME;
@@ -38,6 +41,16 @@ export class PopupComponent implements OnInit {
         this.controlType = PeriodicElementControlType.POSITION;
         this.inputType = 'number';
         this.label = 'Position';
+        break;
+        case PeriodicElementControlType.WEIGHT:
+        this.controlType = PeriodicElementControlType.WEIGHT;
+        this.inputType = 'number';
+        this.label = 'Weight';
+        break;
+        case PeriodicElementControlType.SYMBOL:
+        this.controlType = PeriodicElementControlType.SYMBOL;
+        this.inputType = 'text';
+        this.label = 'Symbol';
         break;
     }
   }
