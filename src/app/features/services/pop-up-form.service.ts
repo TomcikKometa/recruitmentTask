@@ -1,14 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { NonNullableFormBuilder, FormGroup, Validators, FormControl, Form, FormBuilder } from '@angular/forms';
-import {
-  NameForm,
-  PeriodicElementForm,
-  PopUpData,
-  PopUpGroup,
-  PositionForm,
-  SymbolForm,
-  WeightForm
-} from '../periodic-elements/components/popup/model/pop-up-form';
+import { NonNullableFormBuilder, FormGroup } from '@angular/forms';
+import { PopUpData, PopUpGroup } from '../periodic-elements/components/popup/model/pop-up-form';
 import { PeriodicElementControlType } from '../periodic-elements/components/popup/enum/popup-form-enum';
 
 @Injectable({

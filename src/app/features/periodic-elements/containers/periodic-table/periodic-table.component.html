@@ -1,10 +1,10 @@
-<div class="page_setting justify-center">
+<div class="periodic_table_setting">
   @if(isLoading$ | async){
   <div class="flex flex-row justify-center">
     <ng-lottie [options]="options" width="475px" height="280px" class="pt-56" />
   </div>
 }
-  <div [ngClass]="{'hiden1':(isLoading$ | async)}">
+  <div [ngClass]="{'table_visability':(isLoading$ | async)}">
     <div class="flex justify-center pb-2 pt-6">
       <img src="../assets/images/table-text.svg" width="490" height="130" class="" alt="" />
     </div>
@@ -13,14 +13,14 @@
         <input
           matInput
           type="text"
-          [ngClass]="{'hiden1': (isLoading$ | async), 'input': !(isLoading$ | async)}"
+          [ngClass]="{'table_visability': (isLoading$ | async), 'input': !(isLoading$ | async)}"
           [formControl]="filterControl"
           placeholder="Search by position | name | weight | symbol"
         />
       </div>
     </div>
-    <div class="content_setting">
-      <table class="table w-72" mat-table [dataSource]="(periodicElements$ | async)!">
+    <div class="table_main_setting">
+      <table class="table_shadow w-72" mat-table [dataSource]="(periodicElements$ | async)!">
         <ng-container matColumnDef="position">
           <th mat-header-cell *matHeaderCellDef>
             <div class="flex justify-center"><span>Position</span></div>

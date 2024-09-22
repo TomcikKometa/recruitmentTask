@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { PopUpData } from './model/pop-up-form';
 import { PopUpFormService } from '../../../services/pop-up-form.service';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -26,10 +26,8 @@ export class PopupComponent implements OnInit {
   protected readonly matDialogRef: MatDialogRef<PopupComponent> = inject(MatDialogRef);
   protected readonly data: PopUpData = inject(MAT_DIALOG_DATA);
   private readonly popFormService: PopUpFormService = inject(PopUpFormService);
-  private readonly ref: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
-    console.log(this.data);
     this.data.element ? (this.popUpForm = this.popFormService.prepareForm(this.data),this.isData = true ): this.isData = false;
     switch (this.data.editType) {
       case PeriodicElementControlType.NAME:
