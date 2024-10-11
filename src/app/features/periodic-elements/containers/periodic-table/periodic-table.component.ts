@@ -44,24 +44,24 @@ export class MainDashboardComponent implements OnInit {
     autoplay: true
   };
   protected readonly filterControl: FormControl = new FormControl('');
-  private readonly periodicElementDataService = inject(PeriodicElementStateService);
+  private readonly periodicElementStateService = inject(PeriodicElementStateService);
 
   protected displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   protected dataSource!: MatTableDataSource<PeriodicElement, MatPaginator>;
   protected isRendered: boolean = true;
-  protected isLoading$: Observable<boolean> = this.periodicElementDataService.isLoading$;
-  protected periodicElements$: Observable<PeriodicElement[]> = this.periodicElementDataService.periodicElements$;
+  protected isLoading$: Observable<boolean> = this.periodicElementStateService.isLoading$;
+  protected periodicElements$: Observable<PeriodicElement[]> = this.periodicElementStateService.periodicElements$;
 
   private readonly destroyReference: DestroyRef = inject(DestroyRef);
   private readonly dialog: MatDialog = inject(MatDialog);
 
   public ngOnInit(): void {
-    this.periodicElementDataService.fetchPeriodicElements();
+    this.periodicElementStateService.fetchPeriodicElements();
 
     this.filterControl.valueChanges
       .pipe(takeUntilDestroyed(this.destroyReference), debounceTime(2000))
       .subscribe((value: string) => {
-        this.periodicElementDataService.filterPhrase = value;
+        this.periodicElementStateService.filterPhrase = value;
       });
   }
 
@@ -74,7 +74,7 @@ export class MainDashboardComponent implements OnInit {
         filter((value: Partial<PeriodicElement>) => !!value)
       )
       .subscribe(value => {
-        this.periodicElementDataService.editPeriodicElements(element.position, { ...element, ...value });
+        this.periodicElementStateService.editPeriodicElements(element.position, { ...element, ...value });
       });
   }
 }
